@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html>
+
+<head><meta name="generator" content="Hexo 3.8.0">
+	<link rel="bookmark" type="image/x-icon" href="/img/zk.ico">
+	<link rel="shortcut icon" href="/img/zk.ico">
+	
+			    <title>
+    Hexo
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="/css/mic_main.css">
+    <link rel="stylesheet" href="/css/dropdownMenu.css">
+    <meta name="keywords" content="miccall">
+    
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css">
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/bg-1.jpg') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+			    
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+	
+</head>
+    
+		
+<!-- Layouts -->
+
+
+
+<!--  代码渲染  -->
+<link rel="stylesheet" href="/css/prism_coy.css">
+<link rel="stylesheet" href="/css/typo.css">
+<!-- 文章页 -->
+<body class="is-loading">
+    <!-- Wrapper 外包 s-->
+    <div id="wrapper" class="fade-in">
+        <!-- Intro 头部显示 s -->
+        <!-- Intro 头部显示 e -->
+        <!-- Header 头部logo start -->
+        <header id="header">
+    <a href="/" class="logo">KAICALL</a>
+</header>
+        <!-- Nav 导航条 start -->
+        <nav id="nav" class="special">
+            <ul class="menu links">
+			<!-- Homepage  主页  --> 
+			<li>
+	            <a href="/" rel="nofollow">主页</a>
+	        </li>
+			<!-- categories_name  分类   --> 
+	        
+	        <!-- archives  归档   --> 
+	        
+	        
+		        <!-- Pages 自定义   -->
+		        
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+                    <li>
+                        <a title="github" href="https://github.com/zk990202" target="_blank" rel="noopener">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                    
+			</ul>
+</nav>
+
+        <div id="main">
+            <div class="post_page_title_img" style="height: 25rem;background-image: url(https://s1.ax1x.com/2018/11/06/iTmpwV.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;">
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2>菜鸡初学Python</h2></a>
+            </div>
+            <!-- Post -->
+            <div class="typo" style="padding: 3rem;">
+                <blockquote>
+<h1 id="写在最开始自己对Python的一些想法"><a href="#写在最开始自己对Python的一些想法" class="headerlink" title="写在最开始自己对Python的一些想法"></a>写在最开始自己对Python的一些想法</h1><p>对Python这门语言最大的感受就是，这语言真的是神奇，它居然没有分号，而且还没有花括号！！！</p>
+</blockquote>
+<h1 id="一、Python的字符串"><a href="#一、Python的字符串" class="headerlink" title="一、Python的字符串"></a>一、Python的字符串</h1><h2 id="1、单字符"><a href="#1、单字符" class="headerlink" title="1、单字符"></a>1、单字符</h2><p>对于单个字符，Python可以将字符与编码相互转化，ord()函数将字符转化成编码，chr()函数则相反</p>
+<p>如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(ord(<span class="string">'A'</span>))</span><br></pre></td></tr></table></figure>
+<p>输出为65。</p>
+<h2 id="2、编码与解码"><a href="#2、编码与解码" class="headerlink" title="2、编码与解码"></a>2、编码与解码</h2><p>由于Python的字符串类型是<code>str</code>，在内存中以Unicode表示，一个字符对应若干个字节。如果要在网络上传输，或者保存到磁盘上，就需要把<code>str</code>变为以字节为单位的<code>bytes</code>。</p>
+<p>Python对<code>bytes</code>类型的数据用带<code>b</code>前缀的单引号或双引号表示，如</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="string">b'ABC'</span></span><br></pre></td></tr></table></figure>
+<p>Unicode表示的<code>str</code>通过<code>encode()</code>方法可以编码为指定的<code>bytes</code>，<code>encode()</code>函数里的参数是<code>ASCII</code> <code>UTF-8</code>等编码格式；对于英文，可以直接使用<code>ASCII</code>，而中文则必须使用<code>UTF-8</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">'ABC'</span>.encode(<span class="string">'ASCII'</span>))</span><br><span class="line">print(<span class="string">'你好'</span>.encode(<span class="string">'UTF-8'</span>))</span><br></pre></td></tr></table></figure>
+<p>输出为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">b&apos;ABC&apos;</span><br><span class="line">b&apos;\xe4\xbd\xa0\xe5\xa5\xbd&apos;</span><br></pre></td></tr></table></figure>
+<p>反过来，如果我们从网络或磁盘上读取了字节流，那么读到的数据就是<code>bytes</code>。要把<code>bytes</code>变为<code>str</code>，就需要用<code>decode()</code>方法。如果<code>bytes</code>中包含无法解码的字节，<code>decode()</code>方法会报错。</p>
+<h2 id="3、格式化"><a href="#3、格式化" class="headerlink" title="3、格式化"></a>3、格式化</h2><p>Python中格式化方法用<code>%</code>实现。在字符串内部，<code>%s</code>表示用字符串替换，<code>%d</code>表示用整数替换，<code>%f</code>表示用浮点数替换， 有几个<code>%?</code>占位符，后面就跟几个变量或者值，顺序要对应好。如果只有一个<code>%?</code>，括号可以省略。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">'Hi, %s, you have $%d.'</span> % (<span class="string">'Michael'</span>, <span class="number">1000000</span>))</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hi, Michael, you have $1000000.</span><br></pre></td></tr></table></figure>
+
+            </div>
+
+            <!-- Post Comments -->
+            
+    
+
+
+        </div>
+        <!-- Copyright 版权 start -->
+                <div id="copyright">
+            <ul>
+                <li>&copy;Powered By <a href="https://hexo.io/zh-cn/" style="border-bottom: none;">hexo</a></li>
+                <li>Design: <a href="http://miccall.tech " style="border-bottom: none;">miccall</a></li>
+            </ul>
+            
+				<span id="busuanzi_container_site_pv"> 2018 </span> 
+			
+        </div>
+    </div>
+</body>
+
+
+
+ 	
+</html>

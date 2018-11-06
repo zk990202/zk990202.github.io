@@ -1,0 +1,225 @@
+<!DOCTYPE HTML>
+<html>
+
+<head><meta name="generator" content="Hexo 3.8.0">
+	<link rel="bookmark" type="image/x-icon" href="/img/zk.ico">
+	<link rel="shortcut icon" href="/img/zk.ico">
+	
+			    <title>
+    Hexo
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="/css/mic_main.css">
+    <link rel="stylesheet" href="/css/dropdownMenu.css">
+    <meta name="keywords" content="miccall">
+    
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css">
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/bg-1.jpg') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+			    
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+	
+</head>
+    
+		
+<!-- Layouts -->
+
+
+
+<!--  代码渲染  -->
+<link rel="stylesheet" href="/css/prism_coy.css">
+<link rel="stylesheet" href="/css/typo.css">
+<!-- 文章页 -->
+<body class="is-loading">
+    <!-- Wrapper 外包 s-->
+    <div id="wrapper" class="fade-in">
+        <!-- Intro 头部显示 s -->
+        <!-- Intro 头部显示 e -->
+        <!-- Header 头部logo start -->
+        <header id="header">
+    <a href="/" class="logo">KAICALL</a>
+</header>
+        <!-- Nav 导航条 start -->
+        <nav id="nav" class="special">
+            <ul class="menu links">
+			<!-- Homepage  主页  --> 
+			<li>
+	            <a href="/" rel="nofollow">主页</a>
+	        </li>
+			<!-- categories_name  分类   --> 
+	        
+	        <!-- archives  归档   --> 
+	        
+	        
+		        <!-- Pages 自定义   -->
+		        
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+                    <li>
+                        <a title="github" href="https://github.com/zk990202" target="_blank" rel="noopener">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                    
+			</ul>
+</nav>
+
+        <div id="main">
+            <div class="post_page_title_img" style="height: 25rem;background-image: url(https://s1.ax1x.com/2018/11/06/iTmPFU.md.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;">
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2>Laravel下的数据库查询操作</h2></a>
+            </div>
+            <!-- Post -->
+            <div class="typo" style="padding: 3rem;">
+                <h1 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h1><p>数据库查询构建器提供了一个方便的流接口用于创建和执行数据库查询。查询构建器可以用于执行应用中大部分数据库操作，并且能够在支持的所有数据库系统上工作。<br>现在向大家介绍的是Laravel下的数据库查询构建器，并且与Model层结合。</p>
+<h1 id="2-数据库操作前的准备"><a href="#2-数据库操作前的准备" class="headerlink" title="2.数据库操作前的准备"></a>2.数据库操作前的准备</h1><h2 id="1）Model层"><a href="#1）Model层" class="headerlink" title="(1）Model层"></a>(1）Model层</h2><pre><code>&lt;?php
+namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
+
+class Grades extends Model{
+    protected $table = &apos;grades&apos;; 
+}
+</code></pre><p>其中$table表示的是要连接的数据库中的表</p>
+<h2 id="（2）Controller层"><a href="#（2）Controller层" class="headerlink" title="（2）Controller层"></a>（2）Controller层</h2><pre><code>&lt;?php
+namespace App\Http\Controllers;
+use App\Models\Grades;
+
+class TestController extends Controller{
+
+}
+</code></pre><p>注意使用Model一定要use</p>
+<h1 id="3-获取结果集"><a href="#3-获取结果集" class="headerlink" title="3.获取结果集"></a>3.获取结果集</h1><h2 id="（1）获取所有行"><a href="#（1）获取所有行" class="headerlink" title="（1）获取所有行"></a>（1）获取所有行</h2><pre><code>public static function getAll(){
+    $res = self::get()-&gt;toArray();
+    return $res;
+}
+</code></pre><h2 id="（2）获取一行-一列"><a href="#（2）获取一行-一列" class="headerlink" title="（2）获取一行/一列"></a>（2）获取一行/一列</h2><h4 id="获取一行数据，使用first-方法"><a href="#获取一行数据，使用first-方法" class="headerlink" title="获取一行数据，使用first()方法"></a>获取一行数据，使用first()方法</h4><pre><code>public static function getFirst(){
+    $res = self::first()-&gt;toArray();
+    return $res;
+}
+</code></pre><p>如果你不需要完整的一行，可以使用 value 方法从结果中获取单个值，该方法会直接返回指定列的值：</p>
+<pre><code>$res = self::value(&apos;name&apos;);  
+</code></pre><h4 id="获取数据列值列表"><a href="#获取数据列值列表" class="headerlink" title="获取数据列值列表"></a>获取数据列值列表</h4><p>如果想要获取包含单个列值的数组，可以使用pluck 方法</p>
+<pre><code>public static function getPlunk(){
+    $res = self::pluck(&apos;grade1&apos;)-&gt;toArray();
+    return $res;
+}
+</code></pre><h2 id="（3）聚合函数"><a href="#（3）聚合函数" class="headerlink" title="（3）聚合函数"></a>（3）聚合函数</h2><p>查询构建器还提供了多个聚合方法，如count, max, min, avg 和 sum，你可以在构造查询之后调用这些方法。大家可以去<a href="http://laravelacademy.org/tags/%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0" target="_blank" rel="noopener">这个网页</a>看一看然后自己试一试</p>
+<h1 id="4-查询-Select"><a href="#4-查询-Select" class="headerlink" title="4.查询(Select)"></a>4.查询(Select)</h1><p>当然，我们并不总是想要获取数据表的所有列，使用 select 方法，你可以为查询指定自定义的 select 子句：</p>
+<pre><code>public static function selectName(){
+    $res = self::select(&apos;name&apos;, &apos;grade1 as grade_one&apos;)-&gt;get()-&gt;toArray();
+    return $res;
+}
+</code></pre><p>其中as可以未查询的字段取一个别名</p>
+<p>distinct 方法允许你强制查询返回不重复的结果集：</p>
+<pre><code>public static function selectDistinct(){
+    $res = self::select(&apos;grade1&apos;)-&gt;distinct()-&gt;get()-&gt;toArray();
+    return $res;
+}
+</code></pre><h1 id="5-Where子句"><a href="#5-Where子句" class="headerlink" title="5.Where子句"></a>5.Where子句</h1><h2 id="（1）简单where子句"><a href="#（1）简单where子句" class="headerlink" title="（1）简单where子句"></a>（1）简单where子句</h2><p>使用查询构建器上的 where 方法可以添加 where 子句到查询中，调用where 最基本的方法需要传递三个参数，第一个参数是列名，第二个参数是任意一个数据库系统支持的操作符，第三个参数是该列要比较的值。<br>为了方便，如果你只是简单比较列值和给定数值是否相等，可以将数值直接作为where方法的第二个参数（即省略“=”）：</p>
+<pre><code>public static function getById(){
+    $res = self::where(&apos;id&apos;, 2)
+        -&gt;get()-&gt;toArray();
+    return $res;
+}
+</code></pre><p>当然，你还可以使用其它操作符来编写where 子句：</p>
+<pre><code>$res = self::where(&apos;id&apos;, &apos;&gt;&apos;, 1)
+    -&gt;get()-&gt;toArray();
+$res = self::where(&apos;name&apos;, &apos;&lt;&gt;&apos;, &apos;zhangsan&apos;)
+    -&gt;get()-&gt;toArray();
+</code></pre><p>​<br>还可以传递条件数组到 where 函数：</p>
+<pre><code>$res = self::where([
+     [ &apos;id&apos;, &apos;1&apos;],
+     [&apos;name&apos;, &apos;&lt;&gt;&apos;, &apos;lisi&apos;] 
+])
+</code></pre><h2 id="（2）Or语句"><a href="#（2）Or语句" class="headerlink" title="（2）Or语句"></a>（2）Or语句</h2><pre><code>$users = DB::table(&apos;users&apos;)
+            -&gt;where(&apos;votes&apos;, &apos;&gt;&apos;, 100)
+            -&gt;orWhere(&apos;name&apos;, &apos;John&apos;)
+            -&gt;get();
+</code></pre><h2 id="（3）更多where子句"><a href="#（3）更多where子句" class="headerlink" title="（3）更多where子句"></a>（3）更多where子句</h2><h4 id="whereBetween-whereNotBetween"><a href="#whereBetween-whereNotBetween" class="headerlink" title="whereBetween/whereNotBetween"></a>whereBetween/whereNotBetween</h4><p>whereBetween方法验证列值是否在给定值之间：</p>
+<pre><code>$users = DB::table(&apos;users&apos;)
+            -&gt;whereBetween(&apos;votes&apos;, [1, 100])-&gt;get();
+</code></pre><p>whereNotBetween 方法验证列值不在给定值之间</p>
+<h4 id="whereIn-whereNotIn"><a href="#whereIn-whereNotIn" class="headerlink" title="whereIn/whereNotIn"></a>whereIn/whereNotIn</h4><p>whereIn 方法验证给定列的值是否在给定数组中：</p>
+<pre><code>$users = DB::table(&apos;users&apos;)
+            -&gt;whereIn(&apos;id&apos;, [1, 2, 3])
+            -&gt;get();
+</code></pre><p>whereNotIn 方法验证给定列的值不在给定数组中：</p>
+<h4 id="更多的where子句大家可以在以后的应用过程中接触到"><a href="#更多的where子句大家可以在以后的应用过程中接触到" class="headerlink" title="更多的where子句大家可以在以后的应用过程中接触到"></a>更多的where子句大家可以在以后的应用过程中接触到</h4><h1 id="6-排序-orderBy"><a href="#6-排序-orderBy" class="headerlink" title="6.排序(orderBy)"></a>6.排序(orderBy)</h1><p>orderBy 方法允许你通过给定字段对结果集进行排序，orderBy 的第一个参数应该是你希望排序的字段，第二个参数控制着排序的方向——asc或desc：</p>
+<pre><code>public static function getAndOrder(){
+    $res = self::orderBy(&apos;grade1&apos;, &apos;desc&apos;)
+        -&gt;orderBy(&apos;grade2&apos;, &apos;asc&apos;)
+        -&gt;get()-&gt;toArray();
+    return $res;
+}
+</code></pre><h1 id="7-插入-Insert"><a href="#7-插入-Insert" class="headerlink" title="7.插入(Insert)"></a>7.插入(Insert)</h1><p>查询构建器还提供了 insert 方法用于插入记录到数据表。insert 方法接收数组形式的字段名和字段值进行插入操作查询构建器还提供了 insert 方法用于插入记录到数据表。insert 方法接收数组形式的字段名和字段值进行插入操作<br>你甚至可以一次性通过传入多个数组来插入多条记录，每个数组代表要插入数据表的记录：</p>
+<pre><code>public static function insertSome(){
+    $res = self::insert([
+        [&apos;name&apos; =&gt; &apos;hhh&apos;, &apos;grade1&apos; =&gt; 99, &apos;grade2&apos; =&gt; 0, &apos;grade3&apos; =&gt; 55],
+        [&apos;name&apos; =&gt; &apos;sss&apos;, &apos;grade1&apos; =&gt; 89, &apos;grade2&apos; =&gt; 78, &apos;grade3&apos; =&gt; 86]
+    ]);
+    return $res;
+}
+</code></pre><h1 id="8-更新-Update"><a href="#8-更新-Update" class="headerlink" title="8.更新(Update)"></a>8.更新(Update)</h1><p>当然，除了插入记录到数据库，查询构建器还可以通过使用 update 方法更新已有记录。update 方法和 insert 方法一样，接收字段名和字段值的键值对数组包含要更新的列，你可以通过 where 子句来对 update 查询进行约束：</p>
+<pre><code>public static function updateOne(){
+    $res = self::where(&apos;id&apos;, 1)
+        -&gt;update([&apos;grade3&apos; =&gt; 100]);
+    return $res;
+}
+</code></pre><p>查询构建器还为增减给定字段名对应数值提供方便。相较于编写 update 语句，这是一条捷径，提供了更好的体验和测试接口。<br>increment自增，decrememt自减<br>这两个方法都至少接收一个参数：需要修改的列。第二个参数是可选的，用于控制列值增加/减少的数目（无参数默认为1）。</p>
+<h1 id="9-删除-Delete"><a href="#9-删除-Delete" class="headerlink" title="9.删除(Delete)"></a>9.删除(Delete)</h1><p>当然，查询构建器还可以通过 delete 方法从表中删除记录，你可以在调用 delete 方法前通过添加 where 子句来添加约束条件：</p>
+<pre><code>public static function deleteSome(){
+    $res = self::where(&apos;id&apos;, 6)
+        -&gt;delete();
+    return $res;
+}
+</code></pre><p>使用这种方法删除数据，一旦删除便不可恢复。所以在一般的项目开发中不推荐使用这种删除，而是在数据表添加一个is_deleted字段，通过修改该字段的值来控制数据在用户端的显示。</p>
+<h4 id="——————————————————————————————"><a href="#——————————————————————————————" class="headerlink" title="——————————————————————————————"></a>——————————————————————————————</h4><p>本文档所介绍的均为最基本的Laravel下的数据库操作，进一步的了解尽在<a href="http://laravelacademy.org/" target="_blank" rel="noopener">Laravel学院</a></p>
+
+            </div>
+
+            <!-- Post Comments -->
+            
+    
+
+
+        </div>
+        <!-- Copyright 版权 start -->
+                <div id="copyright">
+            <ul>
+                <li>&copy;Powered By <a href="https://hexo.io/zh-cn/" style="border-bottom: none;">hexo</a></li>
+                <li>Design: <a href="http://miccall.tech " style="border-bottom: none;">miccall</a></li>
+            </ul>
+            
+				<span id="busuanzi_container_site_pv"> 2018 </span> 
+			
+        </div>
+    </div>
+</body>
+
+
+
+ 	
+</html>

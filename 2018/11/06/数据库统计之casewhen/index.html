@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html>
+
+<head><meta name="generator" content="Hexo 3.8.0">
+	<link rel="bookmark" type="image/x-icon" href="/img/zk.ico">
+	<link rel="shortcut icon" href="/img/zk.ico">
+	
+			    <title>
+    Hexo
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="/css/mic_main.css">
+    <link rel="stylesheet" href="/css/dropdownMenu.css">
+    <meta name="keywords" content="miccall">
+    
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css">
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/bg-1.jpg') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+			    
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+	
+</head>
+    
+		
+<!-- Layouts -->
+
+
+
+<!--  代码渲染  -->
+<link rel="stylesheet" href="/css/prism_coy.css">
+<link rel="stylesheet" href="/css/typo.css">
+<!-- 文章页 -->
+<body class="is-loading">
+    <!-- Wrapper 外包 s-->
+    <div id="wrapper" class="fade-in">
+        <!-- Intro 头部显示 s -->
+        <!-- Intro 头部显示 e -->
+        <!-- Header 头部logo start -->
+        <header id="header">
+    <a href="/" class="logo">KAICALL</a>
+</header>
+        <!-- Nav 导航条 start -->
+        <nav id="nav" class="special">
+            <ul class="menu links">
+			<!-- Homepage  主页  --> 
+			<li>
+	            <a href="/" rel="nofollow">主页</a>
+	        </li>
+			<!-- categories_name  分类   --> 
+	        
+	        <!-- archives  归档   --> 
+	        
+	        
+		        <!-- Pages 自定义   -->
+		        
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+                    <li>
+                        <a title="github" href="https://github.com/zk990202" target="_blank" rel="noopener">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                    
+			</ul>
+</nav>
+
+        <div id="main">
+            <div class="post_page_title_img" style="height: 25rem;background-image: url(https://s1.ax1x.com/2018/11/06/iTmSe0.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;">
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2>数据库统计之casewhen</h2></a>
+            </div>
+            <!-- Post -->
+            <div class="typo" style="padding: 3rem;">
+                <blockquote>
+<p><em>数据库查询时总是会有各种各样奇奇怪怪的需求，又要分组查询，然后一个组中还得查多种数据，每个条件还巨tm的复杂……没错，有时候上级总是会给我们各种需求让我们去完成~好吧，那我们就老老实实完成，顺便再学点新知识……</em></p>
+</blockquote>
+<h1 id="一、需求"><a href="#一、需求" class="headerlink" title="一、需求"></a>一、需求</h1><p>该死的党建又要查数据了，要求是统计出在校所有党支部的每个支部中未交申请书的人数、交了申请书未发展的人数、已发展的人数和总人数。</p>
+<h1 id="二、思路"><a href="#二、思路" class="headerlink" title="二、思路"></a>二、思路</h1><p>要实现这个需求，首先肯定是需要用到<code>group by</code>子句的，将查询的结果根据支部分组。下一步，每一个分好的组，我都要查出总人数、未交申请书的人数、交了申请书未发展的人数、已发展的人数。也就是说，我们需要在用到多个<code>count()</code>函数统计数据，因此，我们必须对每个<code>count()</code>设置约束条件，这个时候<code>case when</code>语句就体现出它的用处了。</p>
+<h1 id="三、case-when"><a href="#三、case-when" class="headerlink" title="三、case when"></a>三、case when</h1><p>语法结构：Case when 约束条件 then 结果1 else 结果2 end</p>
+<p>如果不写else，则默认为else null</p>
+<h1 id="四、开始统计数据"><a href="#四、开始统计数据" class="headerlink" title="四、开始统计数据"></a>四、开始统计数据</h1><p>二话不说，直接上最终sql：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	S.partybranch_id,</span><br><span class="line">	P.partybranch_name,</span><br><span class="line">	P.partybranch_academy,</span><br><span class="line">	C.code,</span><br><span class="line">	C.collegename,</span><br><span class="line">	<span class="keyword">count</span>(*) <span class="keyword">AS</span> total,</span><br><span class="line">	<span class="keyword">COUNT</span>(</span><br><span class="line">		<span class="keyword">CASE</span></span><br><span class="line">		<span class="keyword">WHEN</span> (</span><br><span class="line">			S.sno <span class="keyword">NOT</span> <span class="keyword">IN</span> (</span><br><span class="line">				<span class="keyword">SELECT</span></span><br><span class="line">					F.sno</span><br><span class="line">				<span class="keyword">FROM</span></span><br><span class="line">					twt_student_files F</span><br><span class="line">				<span class="keyword">WHERE</span></span><br><span class="line">					F.file_type = <span class="number">1</span></span><br><span class="line">			)</span><br><span class="line">			<span class="keyword">AND</span> S.main_status = <span class="number">0</span></span><br><span class="line">		) <span class="keyword">THEN</span></span><br><span class="line">			<span class="number">1</span></span><br><span class="line">		<span class="keyword">END</span></span><br><span class="line">	) <span class="keyword">AS</span> notsumbit,</span><br><span class="line">	<span class="keyword">count</span>(</span><br><span class="line">		<span class="keyword">CASE</span></span><br><span class="line">		<span class="keyword">WHEN</span> (</span><br><span class="line">			S.sno <span class="keyword">IN</span> (</span><br><span class="line">				<span class="keyword">SELECT</span></span><br><span class="line">					F.sno</span><br><span class="line">				<span class="keyword">FROM</span></span><br><span class="line">					twt_student_files F</span><br><span class="line">				<span class="keyword">WHERE</span></span><br><span class="line">					F.file_type = <span class="number">1</span></span><br><span class="line">			)</span><br><span class="line">			<span class="keyword">AND</span> (</span><br><span class="line">				S.main_status &lt; <span class="number">10</span></span><br><span class="line">				<span class="keyword">OR</span> S.main_status = <span class="number">23</span></span><br><span class="line">			)</span><br><span class="line">		) <span class="keyword">THEN</span></span><br><span class="line">			<span class="number">1</span></span><br><span class="line">		<span class="keyword">END</span></span><br><span class="line">	) <span class="keyword">AS</span> submitnotdevelop,</span><br><span class="line">	<span class="keyword">count</span>(</span><br><span class="line">		<span class="keyword">CASE</span></span><br><span class="line">		<span class="keyword">WHEN</span> (</span><br><span class="line">			S.main_status &gt;= <span class="number">10</span></span><br><span class="line">			<span class="keyword">AND</span> S.main_status != <span class="number">23</span></span><br><span class="line">		) <span class="keyword">THEN</span></span><br><span class="line">			<span class="number">1</span></span><br><span class="line">		<span class="keyword">END</span></span><br><span class="line">	) <span class="keyword">AS</span> develop</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	twt_student_info S,</span><br><span class="line">	twt_partybranch P,</span><br><span class="line">	b_college C</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	S.partybranch_id = P.partybranch_id</span><br><span class="line"><span class="keyword">AND</span> P.partybranch_academy = C.id</span><br><span class="line"><span class="keyword">AND</span> (</span><br><span class="line">	P.partybranch_ishidden = <span class="number">0</span></span><br><span class="line">	<span class="keyword">AND</span> P.partybranch_isdeleted = <span class="number">0</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">AND</span> (</span><br><span class="line">	P.partybranch_schoolyear &gt;= <span class="number">2015</span></span><br><span class="line">	<span class="keyword">OR</span> (</span><br><span class="line">		P.partybranch_schoolyear &gt;= <span class="number">2014</span></span><br><span class="line">		<span class="keyword">AND</span> P.partybranch_academy = <span class="number">6</span></span><br><span class="line">	)</span><br><span class="line">)</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span></span><br><span class="line">	S.partybranch_id;</span><br></pre></td></tr></table></figure>
+<p>查询结果依次为支部id、支部名、学院id、学院code、学院名、总人数、未交申请书的人数、交了申请书未发展的人数、已发展的人数。</p>
+<p><code>WHERE</code>子句先筛选出在校的学生的党支部，<code>GROUP BY</code>根据支部id进行分组，<code>SELECT</code>时的<code>COUNT()</code>函数根据不同的条件分别统计不同的数据。</p>
+
+            </div>
+
+            <!-- Post Comments -->
+            
+    
+
+
+        </div>
+        <!-- Copyright 版权 start -->
+                <div id="copyright">
+            <ul>
+                <li>&copy;Powered By <a href="https://hexo.io/zh-cn/" style="border-bottom: none;">hexo</a></li>
+                <li>Design: <a href="http://miccall.tech " style="border-bottom: none;">miccall</a></li>
+            </ul>
+            
+				<span id="busuanzi_container_site_pv"> 2018 </span> 
+			
+        </div>
+    </div>
+</body>
+
+
+
+ 	
+</html>

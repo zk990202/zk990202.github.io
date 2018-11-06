@@ -1,0 +1,209 @@
+<!DOCTYPE HTML>
+<html>
+
+<head><meta name="generator" content="Hexo 3.8.0">
+	<link rel="bookmark" type="image/x-icon" href="/img/zk.ico">
+	<link rel="shortcut icon" href="/img/zk.ico">
+	
+			    <title>
+    Hexo
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="/css/mic_main.css">
+    <link rel="stylesheet" href="/css/dropdownMenu.css">
+    <meta name="keywords" content="miccall">
+    
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css">
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/bg-1.jpg') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+			    
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+	
+</head>
+    
+		
+<!-- Layouts -->
+
+
+
+<!--  代码渲染  -->
+<link rel="stylesheet" href="/css/prism_coy.css">
+<link rel="stylesheet" href="/css/typo.css">
+<!-- 文章页 -->
+<body class="is-loading">
+    <!-- Wrapper 外包 s-->
+    <div id="wrapper" class="fade-in">
+        <!-- Intro 头部显示 s -->
+        <!-- Intro 头部显示 e -->
+        <!-- Header 头部logo start -->
+        <header id="header">
+    <a href="/" class="logo">KAICALL</a>
+</header>
+        <!-- Nav 导航条 start -->
+        <nav id="nav" class="special">
+            <ul class="menu links">
+			<!-- Homepage  主页  --> 
+			<li>
+	            <a href="/" rel="nofollow">主页</a>
+	        </li>
+			<!-- categories_name  分类   --> 
+	        
+	        <!-- archives  归档   --> 
+	        
+	        
+		        <!-- Pages 自定义   -->
+		        
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+                    <li>
+                        <a title="github" href="https://github.com/zk990202" target="_blank" rel="noopener">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                    
+			</ul>
+</nav>
+
+        <div id="main">
+            <div class="post_page_title_img" style="height: 25rem;background-image: url(https://s1.ax1x.com/2018/11/06/iTmASJ.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;">
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2>爬虫入门（一）</h2></a>
+            </div>
+            <!-- Post -->
+            <div class="typo" style="padding: 3rem;">
+                <blockquote>
+<p><em>网络爬虫（又被称为网页蜘蛛，网络机器人，在FOAF社区中间，更经常的称为网页追逐者），是一种按照一定的规则，自动地抓取万维网信息的程序或者脚本。</em></p>
+</blockquote>
+<h1 id="一、爬虫的过程"><a href="#一、爬虫的过程" class="headerlink" title="一、爬虫的过程"></a>一、爬虫的过程</h1><p>其实，爬虫的过程和浏览器浏览网页的过程是一样的。道理大家应该都明白，就是当我们在键盘上输入网址点击搜索之后，通过网络首先会经过DNS服务器，分析网址的域名，找到了真正的服务器。然后我们通过HTTP协议对服务器发出GET或POST请求，若请求成功，我们就得到了我们想看到的网页，一般都是用HTML, CSS, JS等前端技术来构建的，若请求不成功，服务器会返回给我们请求失败的状态码，常见到的503，403等。</p>
+<p>爬虫的过程亦是如此，通过对服务器发出请求得到HTML网页，然后对下载的网页进行解析，得到我们想要的内容。</p>
+<h1 id="二、urllib库"><a href="#二、urllib库" class="headerlink" title="二、urllib库"></a>二、urllib库</h1><p>Python有一个内置的urllib库，可谓是爬虫过程非常重要的一部分了。这个内置库的使用就可以完成向服务器发出请求并获得网页的功能。</p>
+<p>urllib除了内置属性之外，还有4个重要的属性，分别是error，parse，request，response。</p>
+<p>在Python的urllib库中doc开头是这样简短描述的：</p>
+<ul>
+<li><p>Error：“Exception classesraised by urllib.”—-就是由urllib举出的exception类</p>
+</li>
+<li><p>Parse：“Parse (absolute andrelative) URLs.”—-解析绝对和相对的URLs</p>
+</li>
+<li><p>Request：“An extensiblelibrary for opening URLs using a variety of protocols”<br>—-用各种协议打开URLs的一个扩展库</p>
+</li>
+<li><p>Response：“Response classesused by urllib.”—-被urllib使用的response类</p>
+<p>​</p>
+</li>
+</ul>
+<h2 id="（一）request的使用"><a href="#（一）request的使用" class="headerlink" title="（一）request的使用"></a>（一）request的使用</h2><h3 id="1-urlopen方法示例"><a href="#1-urlopen方法示例" class="headerlink" title="1.urlopen方法示例"></a>1.urlopen方法示例</h3><p>request请求最简单的操作是用urlopen方法，如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line">response = urllib.request.urlopen(<span class="string">'http://python.org/'</span>)</span><br><span class="line">result = response.read().decode(<span class="string">'utf-8'</span>)</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+<p>这样便会打印出该页的html网页。</p>
+<h3 id="2-urlopen方法及其应用的参数"><a href="#2-urlopen方法及其应用的参数" class="headerlink" title="2.urlopen方法及其应用的参数"></a>2.urlopen方法及其应用的参数</h3><p>urlopen是request的其中一个方法，功能是打开一个URL，URL参数可以是<strong>一串字符串</strong>，也可以是<strong>Request对象</strong> 。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def urlopen(url, data=None, timeout=socket._GLOBAL_DEFAULT_TI</span><br><span class="line">            MEOUT,*, cafile=None, capath=None, </span><br><span class="line">            cadefault=False, context=None):</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>url</strong>：即是我们输入的url网址，（如：<a href="http://www.xxxx.com/" target="_blank" rel="noopener">http://www.xxxx.com/</a>）；</li>
+<li><strong>data</strong>：是我们要发给服务器请求的额外信息（比如登录网页需要主动填写的用户信息）。如果需要添加data参数，那么是POST请求，默认无data参数时，就是GET请求；<ul>
+<li>一般来讲，data参数只有在http协议下请求才有意义</li>
+<li>data参数被规定为byte object，也就是字节对象</li>
+<li>data参数应该使用标准的结构，这个需要使用urllib.parse.urlencode()将data进行 转换，而一般我们把data设置成字典格式再进行转换即可；data在以后实战中会介绍如何使用</li>
+</ul>
+</li>
+<li><strong>timeout</strong>：是选填的内容，定义超时时间，单位是秒，防止请求时间过长，不填就是默认的时间；</li>
+<li><strong>cafile</strong>：是指向单独文件的，包含了一系列的CA认证 （很少使用，默认即可）;</li>
+<li><strong>capath</strong>：是指向文档目标，也是用于CA认证（很少使用，默认即可）；</li>
+<li><strong>cafile</strong>：可以忽略</li>
+<li><strong>context</strong>：设置SSL加密传输（很少使用，默认即可）；</li>
+</ul>
+<p>它会返回一个类文件对象，并可以针对这个对象进行各种操作（如上例中的read操作，将html全部读出来），其它常用方法还有：</p>
+<ul>
+<li><p><strong>geturl()</strong></p>
+<p>返回URL，用于看是否有重定向。</p>
+<p>result = response.geturl()</p>
+<p>结果： <code>https://www.python.org/</code></p>
+</li>
+<li><p><strong>info()</strong></p>
+<p>返回元信息，例如HTTP的headers。<br>result = response.info()<br>结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x-xss-protection: 1; mode=block</span><br><span class="line">X-Clacks-Overhead: GNU Terry Pratchett</span><br><span class="line">...</span><br><span class="line">Vary: Cookie   </span><br><span class="line">Strict-Transport-Security: max-age=63072000;includeSubDomains</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>getcode()</strong></p>
+<p>返回回复的HTTP状态码，成功是200，失败可能是503等，可以用来检查代理IP的可使用性。</p>
+<p>result = response.getcode()</p>
+<p>结果：<code>200</code></p>
+</li>
+</ul>
+<h3 id="3-Request方法"><a href="#3-Request方法" class="headerlink" title="3.Request方法"></a>3.Request方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class Request:</span><br><span class="line">    def __init__(self, url, data=None, headers=&#123;&#125;,</span><br><span class="line">                 origin_req_host=None, unverifiable=False,</span><br><span class="line">                 method=None):</span><br></pre></td></tr></table></figure>
+<p>如上定义，Request是一个类，初始化中包括请求需要的各种参数：</p>
+<ul>
+<li>url，data和上面urlopen中的提到的一样。</li>
+<li>headers是HTTP请求的报文信息，如User_Agent参数等，它可以让爬虫伪装成浏览器而不被服务器发现你正在使用爬虫。</li>
+<li>origin_reg_host, unverifiable, method等不太常用</li>
+</ul>
+<p><strong>headers</strong>很有用，有些网站设有反爬虫机制，检查请求若没有headers就会报错，所以我们为了保证爬虫的稳定性，基本每次都会将headers信息加入进去。</p>
+<p>以Chrome浏览器为例，右键-&gt;检查-&gt;network就可以查看request的headers。</p>
+<p>下面来看看Request如何使用吧，代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line">headers = &#123;<span class="string">'User_Agent'</span>: <span class="string">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36</span></span><br><span class="line"><span class="string">           (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36'</span>&#125;</span><br><span class="line">response = urllib.request.Request(<span class="string">'http://python.org/'</span>, headers=headers)</span><br><span class="line">html = urllib.request.urlopen(response)</span><br><span class="line">result = html.read().decode(<span class="string">'utf-8'</span>)</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+<h2 id="（二）Error的使用"><a href="#（二）Error的使用" class="headerlink" title="（二）Error的使用"></a>（二）Error的使用</h2><h3 id="1-URLError类"><a href="#1-URLError类" class="headerlink" title="1.URLError类"></a>1.URLError类</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def __init__(self, reason, filename=None):</span><br><span class="line">    self.args = reason,</span><br><span class="line">    self.reason = reason</span><br><span class="line">    if filename is not None:</span><br><span class="line">        self.filename = filename</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>URLError类是OSError的子类，继承OSError，没有自己的任何行为特点，但是将作为error里面所有其它类型的基类使用。</p>
+</li>
+<li><p>URLError类初始化定义了reason参数，意味着当使用URLError类的对象时，可以查看错误的reason。</p>
+<p>​</p>
+</li>
+</ul>
+<h3 id="2-HTTPError类"><a href="#2-HTTPError类" class="headerlink" title="2.HTTPError类"></a>2.HTTPError类</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def __init__(self, url, code, msg, hdrs, fp):</span><br><span class="line">    self.code = code</span><br><span class="line">    self.msg = msg</span><br><span class="line">    self.hdrs = hdrs</span><br><span class="line">    self.fp = fp</span><br><span class="line">    self.filename = url</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>HTTPError是URLError的子类，当HTTP发生错误将举出HTTPError。</p>
+</li>
+<li><p>HTTPError也是HTTP有效回应的实例，因为HTTP协议错误是有效的回应，包括状态码，headers和body。所以看到在HTTPError初始化的时候定义了这些有效回应的参数。</p>
+</li>
+<li><p>当使用HTTPError类的对象时，可以查看状态码，headers等。</p>
+<p>​</p>
+</li>
+</ul>
+<p>举个栗子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"><span class="keyword">import</span> urllib.error</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    headers = &#123;<span class="string">'User_Agent'</span>: <span class="string">'Mozilla/5.0 (X11; Ubuntu;Linux x86_64; rv:57.0) Gecko/20100101Firefox/57.0'</span>&#125;</span><br><span class="line">    response = urllib.request.Request(<span class="string">'http://python.org/'</span>,</span><br><span class="line">                                       headers=headers)</span><br><span class="line">    html = urllib.request.urlopen(response)</span><br><span class="line">    result = html.read().decode(<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="keyword">except</span> urllib.error.URLError <span class="keyword">as</span> e:</span><br><span class="line">    <span class="keyword">if</span> hasattr(e, <span class="string">'reason'</span>):</span><br><span class="line">        print(<span class="string">'错误原因是'</span> + str(e.reason))</span><br><span class="line"><span class="keyword">except</span> urllib.error.HTTPError <span class="keyword">as</span> e:</span><br><span class="line">    <span class="keyword">if</span> hasattr(e, <span class="string">'code'</span>):</span><br><span class="line">        print(<span class="string">'错误状态码是'</span> + str(e.code))</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">'请求成功通过。'</span>)</span><br></pre></td></tr></table></figure>
+<p>以上代码使用了try..exception的结构，实现了简单的网页爬取，当有异常时，如URLError发生时，就会返回reason，或者HTTPError发生错误时就会返回code。</p>
+
+            </div>
+
+            <!-- Post Comments -->
+            
+    
+
+
+        </div>
+        <!-- Copyright 版权 start -->
+                <div id="copyright">
+            <ul>
+                <li>&copy;Powered By <a href="https://hexo.io/zh-cn/" style="border-bottom: none;">hexo</a></li>
+                <li>Design: <a href="http://miccall.tech " style="border-bottom: none;">miccall</a></li>
+            </ul>
+            
+				<span id="busuanzi_container_site_pv"> 2018 </span> 
+			
+        </div>
+    </div>
+</body>
+
+
+
+ 	
+</html>
